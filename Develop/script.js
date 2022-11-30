@@ -13,41 +13,58 @@ var generateBtn = document.querySelector("#generate");
 generateBtn.addEventListener("click", askPrompts);
 
 
-function askPrompts(){ //Asks the user a series of prompts, stores their choices
-   charCount = prompt("How many characters would you like to use? (8-128)");
-    if(isNaN(charCount) || charCount < 8 || charCount > 128) {
-      alert('Length must be a number and between 8 and 128. Try again.')
-      return false;
-    } 
-  
-    if(confirm('Would you like to include numbers?'));
-      choices = choices.concat(numbers);
-  
-    if(confirm('Would you like to include uppercase letters'));
-      choices = choices.concat(uppercase);
-  
-    if(confirm('Would you like to include lowercase letters?'));
-      choices = choices.concat(lowercase);
-    if(confirm('Would you like to include special characters?'));
-      choices = choices.concat(special)
-  
-}
-  
-function generatePassword() {
-  //generatePassword based on prompt responses 
-  var password = "";
-  for(var i = 0; i < charCount; i++) {
-           
-  }    
+function askPrompts() { //Asks the user a series of prompts, stores their choices
+  initChoices = [];
+
+  charCount = prompt("How many characters would you like to use? (8-128)");
+
+  if (isNaN(charCount) || charCount < 8 || charCount > 128) {
+    alert('Length must be a number and between 8 and 128. Try again.')
+    return false;
+  }
+
+  if (confirm('Would you like to include numbers?')) {
+    choices = choices.concat(numbers);
+  }
+
+  if (confirm('Would you like to include uppercase letters')) {
+    choices = choices.concat(uppercase);
+  }
+
+  if (confirm('Would you like to include lowercase letters?')) {
+    choices = choices.concat(lowercase);
+  }
+
+  if (confirm('Would you like to include special characters?')) {
+    choices = choices.concat(special);
+  }
+  return true;
 }
 
 function writePassword() {
   // Write password to the #password input
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
+  var successPrompts = askPrompts();
+
+  if (successPrompts) {
+    var newPass = generatePassword();
+    var passwordText = document.querySelector("#password");
+    passwordText.value = newPass;
+  }
+
 
 }
+
+function generatePassword() {
+  //generatePassword based on prompt responses 
+  var password = "";
+  for (var i = 0; i < charCount; i++) {
+    var randLetter = Math.floor(math.random() * choices.length);
+    password = password + choices[randLetter];
+  }
+  return password;
+}
+
+
 
 
 
