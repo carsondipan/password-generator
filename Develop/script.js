@@ -8,28 +8,27 @@ var charCount = 8;
 var generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", askPrompts);
 
 
-
-function writePassword() {
-  // Write password to the #password input
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-
-}
-
-function promptInput(){ //Asks the user a series of prompts, stores their choices
+function askPrompts(){ //Asks the user a series of prompts, stores their choices
+  isNumber = confirm('Would you like to include numbers?');
+    if(confirm('Do you want numbers in your password?'));
+  
+    isUppercase = confirm('Would you like to include uppercase letters?');
+  
+  isLowercase = confirm('Would you like to include lowercase letters?');
+  
+  isSpecial = confirm('Would you like to include special characters?');
+  
   charCount = prompt("How many characters would you like to use? (8-128)");
+    
     if(isNaN(charCount) || charCount < 8 || charCount > 128) {
       alert('Length must be a number and between 8 and 128. Try again.')
       return false;
     }
-  isNumber = confirm('Would you like to include numbers?');
-  isUppercase = confirm('Would you like to include uppercase letters?');
-  isLowercase = confirm('Would you like to include lowercase letters?');
-  isSpecial = confirm('Would you like to include special characters?');
+
+
 }
   
 function generatePassword() {
@@ -42,7 +41,13 @@ function generatePassword() {
     
 }
 
+function writePassword() {
+  // Write password to the #password input
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
 
+}
 
 
 
