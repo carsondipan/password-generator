@@ -10,15 +10,36 @@ var choices = [];
 var generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", askPrompts);
+generateBtn.addEventListener("click", writePassword);
 
+// Write password to the #password input
+function writePassword() {
+  var successPrompts = askPrompts();
+  var passwordText = document.querySelector("#password");
+  
+  if (successPrompts) {
+    var newPass = generatePassword();
+    passwordText.value = newPass;
+  } else {
+    passwordText.value = "";
+  }
+}
+
+function generatePassword() {
+  //generatePassword based on prompt responses 
+  var password = "";
+  for (var i = 0; i < charCount; i++) {
+    var randomIndex = Math.floor(Math.random() * choices.length);
+    password = password + choices[randomIndex];
+  }
+  return password;
+}
 
 function askPrompts() { //Asks the user a series of prompts, stores their choices
-  initChoices = [];
-
+  choices = [];
   charCount = prompt("How many characters would you like to use? (8-128)");
 
-  if (isNaN(charCount) || charCount < 8 || charCount > 128) {
+  if(isNaN(charCount) || charCount < 8 || charCount > 128) { 
     alert('Length must be a number and between 8 and 128. Try again.')
     return false;
   }
@@ -39,29 +60,6 @@ function askPrompts() { //Asks the user a series of prompts, stores their choice
     choices = choices.concat(special);
   }
   return true;
-}
-
-function writePassword() {
-  // Write password to the #password input
-  var successPrompts = askPrompts();
-
-  if (successPrompts) {
-    var newPass = generatePassword();
-    var passwordText = document.querySelector("#password");
-    passwordText.value = newPass;
-  }
-
-
-}
-
-function generatePassword() {
-  //generatePassword based on prompt responses 
-  var password = "";
-  for (var i = 0; i < charCount; i++) {
-    var randLetter = Math.floor(math.random() * choices.length);
-    password = password + choices[randLetter];
-  }
-  return password;
 }
 
 
